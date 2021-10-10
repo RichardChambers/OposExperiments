@@ -10,6 +10,13 @@ This is the source code for version 1.14.001 downloaded from the Monroe Consulti
 
 See the documentation in the file OPOS_CCO_ReadMe_1_14_001.txt
 
+#### Changes needed
+
+I've found several issues with using this source code with a newer compiler, Visual Studio 2017 at the moment, Oct-2021.
+ - use of the deprecated ATL::CComVariant method ClearToZero() which I've changed to Clear() in my working copy
+ - MIDL compiler options that conflict, use of -no_robust for argument checks and targeting NT60, I removed the target in my working copy. See https://stackoverflow.com/questions/47803621/upgrading-vs2017-from-15-4-1-to-15-5-1-resulted-in-build-error
+ - use of RCSTrace, a proprietary product of NCR Corporation, for debug tracing logs (missing UseRCSTrace.h when compiled with Debug)
+
 ## Legal
 
 From URL: http://monroecs.com/oposccos_legal.htm
