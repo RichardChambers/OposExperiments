@@ -366,7 +366,7 @@ HRESULT COPOSScale::GetOposProp( DEBUGPARAM(LPCSTR pPropName)
     }
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszInfo = _T("");
     TCHAR szHR[50];
     if ( !_bOpened )
@@ -415,7 +415,7 @@ HRESULT COPOSScale::SetOposProp( DEBUGPARAM(LPCSTR pPropName)
         SetRC( OPOS_E_NOSERVICE );      //   set COResultCode.
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszInfo = _T("");
     TCHAR szHR[50];
     if ( !_bOpened )
@@ -491,7 +491,7 @@ HRESULT COPOSScale::GetOposProp( DEBUGPARAM(LPCSTR pPropName)
         *psValue = ::SysAllocString( L"[Error]" );
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszFormat = _T("-%hs [Get].");
     if ( !_bOpened )
         pszFormat = _T("-%hs [Get] -- Closed.");
@@ -514,7 +514,7 @@ HRESULT COPOSScale::GetOposProp( DEBUGPARAM(LPCSTR pPropName)
 HRESULT COPOSScale::SetOposProp( DEBUGPARAM(LPCSTR pPropName)
     long nIndex, BSTR sValue, long nMinor )
 {
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     TCHAR szPrefix[100];
     _sntprintf( szPrefix, TSIZEOF(szPrefix), _T("+%hs [Set]."), pPropName );
     NULTERMINATE(szPrefix);
@@ -544,7 +544,7 @@ HRESULT COPOSScale::SetOposProp( DEBUGPARAM(LPCSTR pPropName)
         SetRC( OPOS_E_NOSERVICE );      //   set COResultCode.
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszInfo = _T("");
     TCHAR szHR[50];
     if ( !_bOpened )
@@ -570,7 +570,7 @@ HRESULT COPOSScale::DoInvoke( DEBUGPARAM(LPCSTR pFuncName)
     HRESULT hRC, OposVariant* pParms, unsigned nParms, int nDispIDIndex, long* pRC, bool bOpenCheck )
 {
     // Trace incoming function and parameters.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     OposVariant* pVar;
     TCHAR szParmNum[20];
     TCHAR szPrefix[100];
@@ -661,7 +661,7 @@ HRESULT COPOSScale::DoInvoke( DEBUGPARAM(LPCSTR pFuncName)
     }
 
     // Trace result and outgoing parameters.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszInfo = _T("");
     TCHAR szHR[50];
     if ( !_bOpened )
@@ -946,7 +946,7 @@ STDMETHODIMP COPOSScale::Open( BSTR DeviceName, long *pRC )
     }
 
     // When debug mode, repeat above trying to get all methods, for later tracing.
-    #ifdef _DEBUG
+    #if defined(_DEBUG) && defined(WRITETRACEERROR)
     int nAllMethods = nMethodCount;
     while ( s_SOMethodNames[nAllMethods] != 0 )
     {
@@ -1058,7 +1058,7 @@ STDMETHODIMP COPOSScale::Open( BSTR DeviceName, long *pRC )
     _bOpened = true;
 
     // Trace some service object information, and initialize debug data.
-    #ifdef _DEBUG
+    #if defined(_DEBUG) && defined(WRITETRACEERROR)
     DOTRACE( ( _T("    <Start> Service Object Properties.") ) );
     BSTR bstrSOInfo;
     GetOposProp( DEBUGPARAM("Open-ServiceObjectDescription") PIDX_ServiceObjectDescription, &bstrSOInfo, 0 );
@@ -1888,7 +1888,7 @@ STDMETHODIMP COPOSScale::get_SalesPrice( /*[out, retval]*/ CURRENCY* pSalesPrice
     }
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pInfo = _T("");
     TCHAR pszHR[50];
     if ( !_bOpened )
@@ -1947,7 +1947,7 @@ STDMETHODIMP COPOSScale::get_UnitPrice( /*[out, retval]*/ CURRENCY* pUnitPrice )
     }
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pInfo = _T("");
     TCHAR pszHR[50];
     if ( !_bOpened )
@@ -1993,7 +1993,7 @@ STDMETHODIMP COPOSScale::put_UnitPrice( /*[in]*/ CURRENCY UnitPrice )
         SetRC(OPOS_E_NOSERVICE);        //   set COResultCode.
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pInfo = _T("");
     TCHAR pszHR[50];
     if ( !_bOpened )
@@ -2172,7 +2172,7 @@ STDMETHODIMP COPOSScale::get_MinimumWeight( /*[out, retval]*/ LONG* pMinimumWeig
 // Debug build tracing support.
 /////////////////////////////////////////////////////////////////////////////
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
 
 #include <stdio.h>
 #include <tchar.h>

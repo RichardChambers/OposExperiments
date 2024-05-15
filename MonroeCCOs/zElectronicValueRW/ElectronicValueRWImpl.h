@@ -44,7 +44,7 @@ limitations under the License.
 /////////////////////////////////////////////////////////////////////////////
 
 //~~~~ When Debug, will perform some tracing ~~~~
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
 // Default is to use writes using RCS Trace components.
 //   Source code does not include the files to recompile to use them.
 //#define _FILETRACE // Uncomment to use C runtime writes to a file.
@@ -185,7 +185,7 @@ protected:
 // Data and functions for tracing when Debug.
 //===========================================================================
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
 public:
     void* _pTrace;
     LONG _nBinaryConversion;

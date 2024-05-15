@@ -37,7 +37,7 @@ limitations under the License.
 #ifndef __CASHCHANGERCP_H__
 #define __CASHCHANGERCP_H__
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     class COPOSCashChanger;
     #define FEUNKNOWN (IUnknown*) sp,
 #else
@@ -128,7 +128,7 @@ public:
         IFDEBUG( _pOposControl = pOposControl );
     }
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     STDMETHOD(Advise)(IUnknown* pUnkSink, DWORD* pdwCookie)
     {
         HRESULT hr = IConnectionPointImpl<T, &DIID__IOPOSCashChangerEvents, CComDynamicUnkArray>::Advise( pUnkSink, pdwCookie );
@@ -150,7 +150,7 @@ protected:
     DISPID _DIDStatus;
 
 // Fire an event.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     void FireTheEvent( IUnknown* pUnkSink, OposVariant* rgvarg, unsigned int cArgs, DISPID& FirstDispID, const OLECHAR* pName, DISPID MyDispID )
 #else
     void FireTheEvent( OposVariant* rgvarg, unsigned int cArgs, DISPID& FirstDispID, const OLECHAR* pName, DISPID MyDispID )

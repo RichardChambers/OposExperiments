@@ -37,7 +37,7 @@ limitations under the License.
 #ifndef __SCANNERCP_H__
 #define __SCANNERCP_H__
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     class COPOSScanner;
     #define FEUNKNOWN (IUnknown*) sp,
 #else
@@ -155,7 +155,7 @@ public:
         IFDEBUG( _pOposControl = pOposControl );
     }
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     STDMETHOD(Advise)(IUnknown* pUnkSink, DWORD* pdwCookie)
     {
         HRESULT hr = IConnectionPointImpl<T, &DIID__IOPOSScannerEvents, CComDynamicUnkArray>::Advise( pUnkSink, pdwCookie );
@@ -178,7 +178,7 @@ protected:
     DISPID _DIDStatus;
 
 // Fire an event.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     void FireTheEvent( IUnknown* pUnkSink, OposVariant* rgvarg, unsigned int cArgs, DISPID& FirstDispID, const OLECHAR* pName, DISPID MyDispID )
 #else
     void FireTheEvent( OposVariant* rgvarg, unsigned int cArgs, DISPID& FirstDispID, const OLECHAR* pName, DISPID MyDispID )

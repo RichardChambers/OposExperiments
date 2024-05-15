@@ -317,7 +317,7 @@ limitations under the License.
 
     STDMETHOD( SODirectIO )(long EventNumber, long* pData, BSTR* pString)
     {
-    #ifdef _DEBUG
+    #if defined(_DEBUG) && defined(WRITETRACEERROR)
         DOTRACEV( ( _T("+DirectIOEvent: Event %d (0x%X), Data %d (0x%X)"), \
             EventNumber, EventNumber, *pData, *pData ) );
         DOTRACESTRINGV( _T("    String."), *pString );
@@ -334,7 +334,7 @@ limitations under the License.
             DoEvent( WMU_DIRECT_IO_EVENT, EventNumber, (long) pData );
         }
 
-    #ifdef _DEBUG
+    #if defined(_DEBUG) && defined(WRITETRACEERROR)
         UINT nStrLen = ::SysStringByteLen( DIOStr.bstrVal );
         if ( nStrLen == ::SysStringByteLen( *pString ) &&
              0 == ::memcmp( DIOStr.bstrVal, *pString, nStrLen ) )

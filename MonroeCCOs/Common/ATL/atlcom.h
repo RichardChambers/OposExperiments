@@ -604,7 +604,14 @@ public:
 				hr = E_FAIL;
 				break;
 			}
-			nSize.QuadPart += var.GetSize();
+			ULARGE_INTEGER varGetSize = { 0L };
+			if (FAILED(hr=var.GetSizeMax(&varGetSize)))
+			{
+				ATLTRACE(atlTraceCOM, 0, _T("Invoked failed on var.GetSizeMax() hr=0x%x\n"), hr);
+				hr = E_FAIL;
+				break;
+			}
+			nSize.QuadPart += varGetSize.QuadPart;
 		}
 		*pcbSize = nSize;
 		return hr;
@@ -6120,7 +6127,7 @@ ATLINLINE ATLAPI AtlIPersistPropertyBag_Load(LPPROPERTYBAG pPropBag, LPERRORLOG 
 
 		if (pMap[i].dwSizeData != 0)
 		{
-			var.ClearToZero();
+			var.Clear();
 			var.vt = pMap[i].vt;
 			void* pData = (void*) (pMap[i].dwOffsetData + (DWORD_PTR)pThis);
 			HRESULT hr = pPropBag->Read(pMap[i].szDesc, &var, pErrorLog);
@@ -6183,7 +6190,7 @@ ATLINLINE ATLAPI AtlIPersistPropertyBag_Load(LPPROPERTYBAG pPropBag, LPERRORLOG 
 			vt = var.vt;
 		}
 
-		var.ClearToZero();
+		var.Clear();
 		var.vt = vt;
 
 		HRESULT hr = pPropBag->Read(pMap[i].szDesc, &var, pErrorLog);

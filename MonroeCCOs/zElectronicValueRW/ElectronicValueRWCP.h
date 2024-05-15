@@ -39,7 +39,7 @@ limitations under the License.
 #ifndef __ELECTRONICVALUERWCP_H__
 #define __ELECTRONICVALUERWCP_H__
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     class COPOSElectronicValueRW;
     #define FEUNKNOWN (IUnknown*) sp,
 #else
@@ -206,7 +206,7 @@ public:
         IFDEBUG( _pOposControl = pOposControl );
     }
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     STDMETHOD(Advise)(IUnknown* pUnkSink, DWORD* pdwCookie)
     {
         HRESULT hr = IConnectionPointImpl<T, &DIID__IOPOSElectronicValueRWEvents, CComDynamicUnkArray>::Advise( pUnkSink, pdwCookie );
@@ -231,7 +231,7 @@ protected:
     DISPID _DIDTransition;
 
 // Fire an event.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     void FireTheEvent( IUnknown* pUnkSink, OposVariant* rgvarg, unsigned int cArgs, DISPID& FirstDispID, const OLECHAR* pName, DISPID MyDispID )
 #else
     void FireTheEvent( OposVariant* rgvarg, unsigned int cArgs, DISPID& FirstDispID, const OLECHAR* pName, DISPID MyDispID )

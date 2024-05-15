@@ -328,7 +328,7 @@ HRESULT COPOSPOSKeyboard::GetOposProp( DEBUGPARAM(LPCSTR pPropName)
     }
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszInfo = _T("");
     TCHAR szHR[50];
     if ( !_bOpened )
@@ -377,7 +377,7 @@ HRESULT COPOSPOSKeyboard::SetOposProp( DEBUGPARAM(LPCSTR pPropName)
         SetRC( OPOS_E_NOSERVICE );      //   set COResultCode.
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszInfo = _T("");
     TCHAR szHR[50];
     if ( !_bOpened )
@@ -453,7 +453,7 @@ HRESULT COPOSPOSKeyboard::GetOposProp( DEBUGPARAM(LPCSTR pPropName)
         *psValue = ::SysAllocString( L"[Error]" );
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszFormat = _T("-%hs [Get].");
     if ( !_bOpened )
         pszFormat = _T("-%hs [Get] -- Closed.");
@@ -476,7 +476,7 @@ HRESULT COPOSPOSKeyboard::GetOposProp( DEBUGPARAM(LPCSTR pPropName)
 HRESULT COPOSPOSKeyboard::SetOposProp( DEBUGPARAM(LPCSTR pPropName)
     long nIndex, BSTR sValue, long nMinor )
 {
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     TCHAR szPrefix[100];
     _sntprintf( szPrefix, TSIZEOF(szPrefix), _T("+%hs [Set]."), pPropName );
     NULTERMINATE(szPrefix);
@@ -506,7 +506,7 @@ HRESULT COPOSPOSKeyboard::SetOposProp( DEBUGPARAM(LPCSTR pPropName)
         SetRC( OPOS_E_NOSERVICE );      //   set COResultCode.
 
     // Trace result.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszInfo = _T("");
     TCHAR szHR[50];
     if ( !_bOpened )
@@ -532,7 +532,7 @@ HRESULT COPOSPOSKeyboard::DoInvoke( DEBUGPARAM(LPCSTR pFuncName)
     HRESULT hRC, OposVariant* pParms, unsigned nParms, int nDispIDIndex, long* pRC, bool bOpenCheck )
 {
     // Trace incoming function and parameters.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     OposVariant* pVar;
     TCHAR szParmNum[20];
     TCHAR szPrefix[100];
@@ -621,7 +621,7 @@ HRESULT COPOSPOSKeyboard::DoInvoke( DEBUGPARAM(LPCSTR pFuncName)
     }
 
     // Trace result and outgoing parameters.
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
     LPCTSTR pszInfo = _T("");
     TCHAR szHR[50];
     if ( !_bOpened )
@@ -905,7 +905,7 @@ STDMETHODIMP COPOSPOSKeyboard::Open( BSTR DeviceName, long *pRC )
     }
 
     // When debug mode, repeat above trying to get all methods, for later tracing.
-    #ifdef _DEBUG
+    #if defined(_DEBUG) && defined(WRITETRACEERROR)
     int nAllMethods = nMethodCount;
     while ( s_SOMethodNames[nAllMethods] != 0 )
     {
@@ -1017,7 +1017,7 @@ STDMETHODIMP COPOSPOSKeyboard::Open( BSTR DeviceName, long *pRC )
     _bOpened = true;
 
     // Trace some service object information, and initialize debug data.
-    #ifdef _DEBUG
+    #if defined(_DEBUG) && defined(WRITETRACEERROR)
     DOTRACE( ( _T("    <Start> Service Object Properties.") ) );
     BSTR bstrSOInfo;
     GetOposProp( DEBUGPARAM("Open-ServiceObjectDescription") PIDX_ServiceObjectDescription, &bstrSOInfo, 0 );
@@ -1665,7 +1665,7 @@ STDMETHODIMP COPOSPOSKeyboard::get_CapUpdateFirmware( /*[out, retval]*/ VARIANT_
 // Debug build tracing support.
 /////////////////////////////////////////////////////////////////////////////
 
-#ifdef _DEBUG
+#if defined(_DEBUG) && defined(WRITETRACEERROR)
 
 #include <stdio.h>
 #include <tchar.h>
