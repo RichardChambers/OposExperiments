@@ -38,6 +38,43 @@ I've found several issues with using this source code with a newer compiler, Vis
  So if you want to enable tracing add defined constant `WRITETRACEERROR` to the compiler command line and if you don't have RCS Trace from NCR then
  also define `_FILETRACE` to enable logging trace data to a file.
 
+## Folder structure
+
+Each of the different OPOS controls has their source in a folder which starts with the letter z. So the POSPrinter OPOS control
+source is located in the folder zPOSPrinter. These source files are used to generate each of the .ocx files that are part of
+the installation package.
+
+The folder OposConstants contains the source code for the Opos_Constants.dll file which is also part of the installation package.
+
+The folder OCX is the destination folder for the compiler output files with subfolders of Release and Debug. The results of
+compiling the source code is put into the appropriate subfolder, Release or Debug. These folder will contain .lib, .ocx,
+.dll, .exp, and .map files after a compile of the source. The only files needed for installation are the .ocx and .dll files.
+
+The folder Common contains source files that all of the OPOS controls use. In this folder is a folder ATL with a modified
+version of the file atlcom.h with those changes briefly explained in the file _ATLChanges_.txt also in that folder.
+
+Also in the folder Common is a folder Opos which contains the OPOS include files needed by an application. The files in this
+folder are included in the .zip file Monroe uses to provide the .ocx files with the Register.bat OPOS control registration script.
+
+The folder DataFiles contains text files with directives used by a generator to generate the initial source code for the OPOS
+controls. This would seem to be something done rarely. The generator tool has not yet been located.
+
+### .bat files
+
+There are a couple of .bat files that are in the MonroeCOs root folder containing all the subfolders with the source code.
+
+The files CleanFiles.bat and CleanFiles2.bat are used to perform a complete clean of all intermediary and final build
+products. This results in all the files generated during a build to be removed including the generated .h files from the
+MIDL compiler. The CleanFiles.bat script is more complete than doing a Build -> Clean Solution menu choice in the
+Visual Studio IDE.
+
+The file Register.bat is from the .zip file containing the OPOS .ocx controls and is used as a script to register the
+controls as well as the Opos_Constants.dll file. It uses an application, regcomsvr.exe, which seems to be similar in
+functionality to the application regsvr32.exe. The application regcomsvr.exe is included in the .zip file along with
+the .ocx controls and .dll file.
+
+The file CreateZip.bat will create a .zip file containing the OPOS controls and the OPOS include files along with
+the Register.bat script file. This script does require powershell as it uses the Compress-Archive command.
 
 ## Legal
 
